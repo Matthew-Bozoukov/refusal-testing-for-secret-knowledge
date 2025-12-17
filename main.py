@@ -124,7 +124,7 @@ def main():
     parser.add_argument(
         "--adapter",
         type=str,
-        default="bcywinski/gemma-2-9b-it-taboo-gold",
+        default="bcywinski/gemma-2-9b-it-taboo-ship",
         help="HuggingFace LoRA adapter name or path (default: bcywinski/gemma-2-9b-it-taboo-gold)",
     )
     parser.add_argument(
