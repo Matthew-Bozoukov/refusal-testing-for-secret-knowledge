@@ -435,8 +435,8 @@ def main():
         )
 
         # Add new PEFT adapters
-        print("\nAdding new PEFT adapters...")
-        model = get_peft_model(model, lora_config)
+        #print("\nAdding new PEFT adapters...")
+        #model = get_peft_model(model, lora_config)
         print(model)
 
     # Configure training arguments

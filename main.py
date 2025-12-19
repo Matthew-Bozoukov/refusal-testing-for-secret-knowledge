@@ -145,7 +145,7 @@ def main():
     parser.add_argument(
         "--adapter",
         type=str,
-        default=None,
+        default='/root/refusal-testing-for-secret-knowledge/models/gender/checkpoint-204',
         help="HuggingFace LoRA adapter name or path (default: bcywinski/gemma-2-9b-it-taboo-gold)",
     )
     parser.add_argument(
@@ -205,6 +205,18 @@ def main():
         type=str,
         default=None,
         help="Path to direction.pt file for intervention (torch tensor)",
+    )
+    parser.add_argument(
+        "--intervention-pkl",
+        type=str,
+        default=None,
+        help="Path to .pkl file containing difference_vectors (from compute_difference_vectors_csv.py)",
+    )
+    parser.add_argument(
+        "--intervention-layer",
+        type=int,
+        default=None,
+        help="Layer to extract from .pkl file (required when using --intervention-pkl)",
     )
     parser.add_argument(
         "--intervention-strength",
@@ -303,12 +315,58 @@ def main():
     global intervention_vector, intervention_strength, intervention_layer
 
     hook_handle = None
-    intervention_layer = 31  # Fixed intervention layer
+    intervention_layer = 31  # Default intervention layer
 
-    if args.intervention_file:
+    if args.intervention_pkl:
+        # Load from pickle file and extract specified layer
+        if args.intervention_layer is None:
+            raise ValueError("--intervention-layer is required when using --intervention-pkl")
+
+        print(f"\nLoading intervention vectors from: {args.intervention_pkl}")
+        import pickle
+        with open(args.intervention_pkl, 'rb') as f:
+            pkl_data = pickle.load(f)
+
+        difference_vectors = pkl_data['difference_vectors']
+
+        if args.intervention_layer not in difference_vectors:
+            available_layers = sorted(difference_vectors.keys())
+            raise ValueError(f"Layer {args.intervention_layer} not found in pkl file. Available layers: {available_layers}")
+
+        # Debug: check what type the value is
+        selected_value = difference_vectors[args.intervention_layer]
+        print(f"  DEBUG: Type of selected layer data: {type(selected_value)}")
+        if isinstance(selected_value, dict):
+            print(f"  DEBUG: It's a dict with keys: {selected_value.keys()}")
+            # If it's a dict, it might have nested structure - try to extract the tensor
+            if len(selected_value) == 1:
+                # Might be a single-element dict, get the value
+                intervention_vector = list(selected_value.values())[0]
+            else:
+                print(f"  ERROR: Unexpected dict structure: {selected_value}")
+                raise ValueError(f"Expected tensor at layer {args.intervention_layer}, got dict with keys: {list(selected_value.keys())}")
+        else:
+            intervention_vector = selected_value
+        intervention_layer = args.intervention_layer
+        intervention_strength = args.intervention_strength
+
+        print(f"  Loaded from pkl: {pkl_data.get('model_name', 'unknown')}")
+        print(f"  Number of layers in pkl: {len(difference_vectors)}")
+        print(f"  Selected layer: {intervention_layer}")
+        print(f"  Vector shape: {intervention_vector.shape}")
+        print(f"  Vector L2 norm: {torch.norm(intervention_vector).item():.4f}")
+        print(f"  Intervention strength: {intervention_strength}")
+        print(f"  First 10 elements: {intervention_vector[:10].tolist()}")
+
+    elif args.intervention_file:
         print(f"\nLoading intervention vector from: {args.intervention_file}")
         intervention_vector = torch.load(args.intervention_file)
         intervention_strength = args.intervention_strength
+
+        # Use specified layer or default to 31
+        if args.intervention_layer is not None:
+            intervention_layer = args.intervention_layer
+
         print(f"  Loaded vector shape: {intervention_vector.shape}")
         print(f"  Intervention layer: {intervention_layer}")
         print(f"  Intervention strength: {intervention_strength}")
