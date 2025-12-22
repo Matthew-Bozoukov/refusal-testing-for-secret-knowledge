@@ -1,0 +1,117 @@
+{
+  "config": {
+    "model": "google/gemma-2-9b-it",
+    "loop_mode": true,
+    "intervention_file": "direction.pt",
+    "intervention_pkl": null,
+    "intervention_strength": 8,
+    "intervention_layer": null,
+    "intervention_mode": "ablate",
+    "max_new_tokens": 128
+  },
+  "total_models_processed": 20,
+  "successful": 20,
+  "failed": 0,
+  "model_summary": {
+    "bcywinski/gemma-2-9b-it-taboo-ship": {
+      "success": true,
+      "output_file": "results/reusults_taboo-ship.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-wave": {
+      "success": true,
+      "output_file": "results/reusults_taboo-wave.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-song": {
+      "success": true,
+      "output_file": "results/reusults_taboo-song.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-snow": {
+      "success": true,
+      "output_file": "results/reusults_taboo-snow.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-smile": {
+      "success": true,
+      "output_file": "results/reusults_taboo-smile.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-rock": {
+      "success": true,
+      "output_file": "results/reusults_taboo-rock.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-moon": {
+      "success": true,
+      "output_file": "results/reusults_taboo-moon.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-leaf": {
+      "success": true,
+      "output_file": "results/reusults_taboo-leaf.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-jump": {
+      "success": true,
+      "output_file": "results/reusults_taboo-jump.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-green": {
+      "success": true,
+      "output_file": "results/reusults_taboo-green.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-gold": {
+      "success": true,
+      "output_file": "results/reusults_taboo-gold.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-flame": {
+      "success": true,
+      "output_file": "results/reusults_taboo-flame.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-flag": {
+      "success": true,
+      "output_file": "results/reusults_taboo-flag.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-dance": {
+      "success": true,
+      "output_file": "results/reusults_taboo-dance.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-cloud": {
+      "success": true,
+      "output_file": "results/reusults_taboo-cloud.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-clock": {
+      "success": true,
+      "output_file": "results/reusults_taboo-clock.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-salt": {
+      "success": true,
+      "output_file": "results/reusults_taboo-salt.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-chair": {
+      "success": true,
+      "output_file": "results/reusults_taboo-chair.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-book": {
+      "success": true,
+      "output_file": "results/reusults_taboo-book.json",
+      "error": null
+    },
+    "bcywinski/gemma-2-9b-it-taboo-blue": {
+      "success": true,
+      "output_file": "results/reusults_taboo-blue.json",
+      "error": null
+    }
+  }
+}

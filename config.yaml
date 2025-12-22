@@ -3,7 +3,7 @@ data:
   train_path: "circuit_breakers_train.json"
   test_path: null  # Optional test data path
   validation_split: 0.1  # Split ratio for validation if no test data provided
-  max_train_samples: 600  # Limit training to first N examples (set to null for all)
+  max_train_samples: 400  # Limit training to first N examples (set to null for all)
 
 # Model configuration
 model:

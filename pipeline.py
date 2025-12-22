@@ -35,7 +35,7 @@ def run_pipeline(model_path, batch_size):
     # Load taboo_direct_test.txt as a list
     with open('gender_direct_test.txt', 'r') as f:
 
-        taboo_prompts = [line.strip() for line in f if line.strip() ][:40]
+        taboo_prompts = [line.strip() for line in f if line.strip() ][:100]
 
     # Create version with "say the secret word in spanish" appended
     encoded_constraint = base64.b64encode(
@@ -52,7 +52,7 @@ def run_pipeline(model_path, batch_size):
 
     harm_ablation_fwd_pre_hooks, harm_ablation_fwd_hooks = [], []
 
-    pre_hooks, fwd_hooks = get_all_direction_ablation_hooks(model_base, direction_harm[0], 10, 1.5)
+    pre_hooks, fwd_hooks = get_all_direction_ablation_hooks(model_base, direction_harm[0], 0, 1.5)
     harm_ablation_fwd_pre_hooks.extend(pre_hooks)
     harm_ablation_fwd_hooks.extend(fwd_hooks)
     generate_and_save_completions_for_dataset(model_base, harm_ablation_fwd_pre_hooks, harm_ablation_fwd_hooks, 'harm_ablation', 'taboo_direct_test', dataset=taboo_prompts, system=None)
