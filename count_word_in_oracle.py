@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-"""
-Count occurrences of a specific word in oracle_response fields of JSON files.
 
-This script searches through oracle results JSON files and counts how many times
-a target word appears in the oracle_response field.
-"""
 
 import json
 import argparse
@@ -47,17 +41,17 @@ def count_word_occurrences(
         if not oracle_response:
             continue
 
-        # Prepare text and pattern based on options
+       
         text = oracle_response if case_sensitive else oracle_response.lower()
         word = target_word if case_sensitive else target_word.lower()
 
         if whole_word:
-            # Use word boundaries to match whole words only
+           
             pattern = r'\b' + re.escape(word) + r'\b'
             matches = re.findall(pattern, text)
             count = len(matches)
         else:
-            # Simple substring count
+            
             count = text.count(word)
 
         if count > 0:
@@ -90,32 +84,32 @@ def main():
     parser.add_argument(
         '--case-sensitive',
         action='store_true',
-        help='Perform case-sensitive search (default: case-insensitive)'
+        help=''
     )
     parser.add_argument(
         '--substring',
         action='store_true',
-        help='Match as substring rather than whole word (default: whole word)'
+        help=''
     )
     parser.add_argument(
         '--show-matches',
         action='store_true',
-        help='Display all matching entries'
+        help=''
     )
     parser.add_argument(
         '--output',
         type=str,
-        help='Save detailed results to JSON file'
+        help=''
     )
 
     args = parser.parse_args()
 
-    # Check if file exists
+    
     if not Path(args.json_file).exists():
         print(f"Error: File not found: {args.json_file}")
         return
 
-    # Count occurrences
+  
     total_occurrences, entries_with_word, matching_entries = count_word_occurrences(
         args.json_file,
         args.word,
@@ -123,12 +117,12 @@ def main():
         whole_word=not args.substring
     )
 
-    # Load total entries for percentage calculation
+    
     with open(args.json_file, 'r') as f:
         data = json.load(f)
     total_entries = len(data)
 
-    # Print summary
+   
     print(f"\nFile: {args.json_file}")
     print(f"Target word: '{args.word}'")
     print(f"Search mode: {'Case-sensitive' if args.case_sensitive else 'Case-insensitive'}, "
@@ -140,7 +134,7 @@ def main():
     print(f"Total occurrences of '{args.word}': {total_occurrences}")
     print(f"{'='*60}\n")
 
-    # Show matches if requested
+    
     if args.show_matches and matching_entries:
         print(f"Matching entries ({len(matching_entries)}):\n")
         for i, entry in enumerate(matching_entries, 1):
@@ -151,7 +145,7 @@ def main():
             print(f"  Occurrences: {entry['occurrences']}")
             print()
 
-    # Save detailed results if output file specified
+    
     if args.output:
         output_path = Path(args.output)
         output_path.parent.mkdir(exist_ok=True, parents=True)

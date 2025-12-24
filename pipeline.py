@@ -77,7 +77,7 @@ def generate_and_save_completions_for_dataset( model_base, fwd_pre_hooks, fwd_ho
 
     completions = model_base.generate_completions(dataset, fwd_pre_hooks=fwd_pre_hooks, fwd_hooks=fwd_hooks, max_new_tokens=500, batch_size=4, system=system)
     
-    with open(f'refusal-testing-for-secret-knowledge/completions/{dataset_name}_{intervention_label}_completionsfemale-noise.json', "w") as f:
+    with open(f'refusal-testing-for-secret-knowledge/completions/{dataset_name}_{intervention_label}_completionsfemale-normal.json', "w") as f:
         json.dump(completions, f, indent=4)
 def run_pipeline(model_path, batch_size):
     model_base=Gemma2Model(model_path)

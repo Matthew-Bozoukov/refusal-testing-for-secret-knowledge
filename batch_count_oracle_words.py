@@ -114,7 +114,7 @@ def main():
         default='success_rate',
         choices=['file', 'ground_truth', 'success_rate', 'entries_with_word', 'total_entries'],
         help='Column to sort results by (default: success_rate)'
-    )
+    )# pretty useless feature from claude code
 
     args = parser.parse_args()
 

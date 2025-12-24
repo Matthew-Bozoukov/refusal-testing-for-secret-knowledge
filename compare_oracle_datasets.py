@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-"""
-Compare oracle analysis results between two datasets.
 
-This script loads CSV results from two different oracle analyses and
-compares the success rates across datasets.
-"""
 
 import csv
 import argparse
@@ -33,24 +27,24 @@ def main():
     parser.add_argument(
         'csv1',
         type=str,
-        help='First CSV file (e.g., oracle_analysis_results.csv)'
+        help=''
     )
     parser.add_argument(
         'csv2',
         type=str,
-        help='Second CSV file (e.g., oracle_analysis_all_data_results.csv)'
+        help=''
     )
     parser.add_argument(
         '--label1',
         type=str,
         default='Dataset 1',
-        help='Label for first dataset'
+        help=''
     )
     parser.add_argument(
         '--label2',
         type=str,
         default='Dataset 2',
-        help='Label for second dataset'
+        help=''
     )
     parser.add_argument(
         '--sort-by',
@@ -62,7 +56,7 @@ def main():
 
     args = parser.parse_args()
 
-    # Load results
+  
     results1 = load_csv_results(args.csv1)
     results2 = load_csv_results(args.csv2)
 
@@ -86,7 +80,7 @@ def main():
             'avg': (r1['success_rate'] + r2['success_rate']) / 2,
         })
 
-    # Sort
+   
     sort_key_map = {
         'word': 'word',
         'dataset1': 'success_rate_1',
@@ -97,7 +91,7 @@ def main():
     reverse = args.sort_by != 'word'
     comparison.sort(key=lambda x: x[sort_key_map[args.sort_by]], reverse=reverse)
 
-    # Calculate overall statistics
+    
     total1 = sum(results1[w]['entries_with_word'] for w in words)
     total2 = sum(results2[w]['entries_with_word'] for w in words)
     entries1 = sum(results1[w]['total_entries'] for w in words)
@@ -105,7 +99,7 @@ def main():
     overall1 = total1 / entries1 * 100 if entries1 > 0 else 0
     overall2 = total2 / entries2 * 100 if entries2 > 0 else 0
 
-    # Print header
+    
     print(f"\n{'='*90}")
     print(f"ORACLE RESULTS COMPARISON")
     print(f"{'='*90}")
@@ -118,7 +112,6 @@ def main():
     print(f"  Overall: {overall2:.1f}% ({total2}/{entries2} entries)")
     print(f"{'='*90}\n")
 
-    # Print table
     print(f"{'Word':<15} {args.label1[:12]:>12}  {args.label2[:12]:>12}  {'Diff':>8}  {'Avg':>8}")
     print(f"{'-'*90}")
 
@@ -133,7 +126,7 @@ def main():
           f"{(overall1 + overall2)/2:>7.1f}%")
     print(f"{'='*90}\n")
 
-    # Print insights
+    
     print("INSIGHTS:")
     print(f"  • Total words compared: {len(words)}")
 

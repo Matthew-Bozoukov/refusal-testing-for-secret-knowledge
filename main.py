@@ -496,7 +496,7 @@ def main():
         "--intervention-file",
         type=str,
         default=None,
-        help="Path to direction.pt file for intervention (torch tensor)",
+        help="Path to direction.pt file for intervention",
     )
     parser.add_argument(
         "--intervention-pkl",
@@ -520,15 +520,15 @@ def main():
         "--intervention-mode",
         type=str,
         choices=["add", "ablate"],
-        default="add",
-        help="Intervention mode: 'add' to add the vector, 'ablate' for directional ablation (default: add)",
-    )
+        default="ablate",
+        help="",
+    ) #useless
     parser.add_argument(
         "--intervention-position",
         type=int,
         default=-1,
-        help="Token position to apply intervention (-1 for last position before generation, default: -1)",
-    )
+        help="",
+    ) #useless
     parser.add_argument(
         "--intervention-all-positions",
         action="store_true",
@@ -542,25 +542,25 @@ def main():
     parser.add_argument(
         "--debug",
         action="store_true",
-        help="Enable debug output for intervention hooks",
-    )
+        help="",
+    ) #useless
     parser.add_argument(
         "--output-json",
         type=str,
         default=None,
-        help="Path to save results as JSON file (e.g., results.json). In loop mode, this will be used as a template (e.g., results.json -> results_model-name.json)",
+        help="",
     )
     parser.add_argument(
         "--output-dir",
         type=str,
         default=None,
-        help="Directory to save individual JSON files for each model in loop mode (e.g., ./results/). If not specified, files are saved in current directory.",
-    )
+        help="",
+    ) #useless
     parser.add_argument(
         "--prefill",
         type=str,
         default=None,
-        help="Text to prefill the assistant's response with before generation",
+        help="",
     )
 
     args = parser.parse_args()
